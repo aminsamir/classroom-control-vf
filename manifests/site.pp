@@ -7,7 +7,7 @@
 # as should the default node definition. (The default node can be omitted
 # if you use the console and don't define any other nodes in site.pp. See
 # http://docs.puppetlabs.com/guides/language_guide.html#nodes for more on
-# node definitions.)
+# node definitions.) commented from Amin
 
 ## Active Configurations ##
 

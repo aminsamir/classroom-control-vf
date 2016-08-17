@@ -53,7 +53,7 @@ node default {
    #     }
   exec { "cowsay 'Welcome to ${::fqdn}!' > /etc/motd": path => $::path, creates => '/etc/motd', } 
   
-  class { 'users': }
-  class { 'skeleton': }
+  #class { 'users': }
+  #class { 'skeleton': }
      
 }

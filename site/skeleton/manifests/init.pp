@@ -1,6 +1,6 @@
 class skeleton {  
 file { '/etc/skel/.bashrc':
-ensure => file,
+ensure => directory,
 owner => 'root',
 group => 'root',
 mode => '0440',

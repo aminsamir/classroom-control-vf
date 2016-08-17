@@ -1,4 +1,4 @@
-class { skeleton 
+class skeleton {  
 file { '/etc/skel/.bashrc':
   ensure  => 'file',
   content => '{md5}2f8222b4f275c4f18e69c34f66d2631b',

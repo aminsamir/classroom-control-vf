@@ -1,53 +1,41 @@
 class nginx {
-
-File {
-owner => 'root',
-group => 'root',
-mode => '0644',
-}
-
-package { 'nginx':
-ensure => present,
-}
-file { '/var/www':
-ensure => directory,
-#owner => 'root',
-#group => 'root',
-#mode => '0775',
-}
-file { '/var/www/index.html':
-ensure => file,
-#owner => 'root',
-#group => 'root',
-#mode => '0664',
-source => 'puppet:///modules/nginx/index.html',
-}
-file { '/etc/nginx/nginx.conf':
-ensure => file,
-#owner => 'root',
-#group => 'root',
-#mode => '0664',
-source => 'puppet:///modules/nginx/nginx.conf',
-require => Package['nginx'],
-notify => Service['nginx'],
-}
-file { '/etc/nginx/conf.d':
-ensure => directory,
-#owner => 'root',
-#group => 'root',
-#mode => '0775',
-}
-file { '/etc/nginx/conf.d/default.conf':
-ensure => file,
-#owner => 'root',
-#group => 'root',
-#mode => '0664',
-source => 'puppet:///modules/nginx/default.conf',
-require => Package['nginx'],
-notify => Service['nginx'],
-}
-service { 'nginx':
-ensure => running,
-enable => true,
-}
+  File {
+    ensure => file,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
+  
+  $docroot = '/var/www'
+  $confdir = '/etc/nginx/'
+  $blockdir = '/etc/nginx/conf.d'
+  
+  package { 'nginx':
+    ensure => present,
+  }
+  
+  file { [$docroot, $blockdir, $confdir]:
+    ensure => directory,
+  }
+  
+  file { "${docroot}/index.html":
+    source => 'puppet:///modules/nginx/index.html',
+  }
+  
+  file { "${confdir}/nginx.conf":
+    source  => 'puppet:///modules/nginx/nginx.conf',
+    require => Package['nginx'],
+    notify  => Service['nginx'],
+  }
+  
+  file { "${blockdir}/default.conf":
+    source  => 'puppet:///modules/nginx/default.conf',
+    require => Package['nginx'],
+    notify  => Service['nginx'],
+  }
+  
+  service { 'nginx':
+    ensure => running,
+    enable => true,
+  }
 }

@@ -7,7 +7,7 @@ class nginx {
   }
   
   $docroot = '/var/www'
-  $confdir = '/etc/nginx/'
+  $confdir = '/etc/nginx'
   $blockdir = '/etc/nginx/conf.d'
   
   package { 'nginx':

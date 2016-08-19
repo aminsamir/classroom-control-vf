@@ -39,26 +39,9 @@ ini_setting { 'random ordering':
 # specified in the console for that node.
 
 node default {
-  # This is where you can declare classes for all nodes.
-  # Example:
-  #   class { 'my_class': }
-  notify { "Hello, my name is ${::hostname}": }
-  if $::virtual != 'physical' {
-  $vmname = capitalize($::virtual)
-  notify { "This is a ${vmname} virtual machine.": }
-  $message = hiera('message')
-  notify { $message:}
-  
-  #file { '/etc/motd':
-  #   ensure => file,
-  #   owner => 'root',
-  #   group => 'root',
-  #   mode  => '0644',
-  #   content => "Hey this Amin\n",
-   #     }
-  exec { "cowsay 'Welcome to ${::fqdn}!' > /etc/motd": path => $::path, creates => '/etc/motd', } 
-  
-  #class { 'users': }
-  #class { 'skeleton': }
-     
+# This is where you can declare classes for all nodes.
+# Example:
+# class { 'my_class': }
+$message = hiera('message')
+notify { $message: }
 }
